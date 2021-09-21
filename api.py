@@ -7,6 +7,21 @@ app = flask.Flask(__name__)
 
 neisKey = "028278aaacd242438668d46a5464e934"
 
+def selectSubject(sub):
+    #print(sub)
+    if "고전문학" in sub:
+        return "선택 A"
+    elif "생활과" in sub:
+        return "선택 C"
+    elif "생명" in sub:
+        return "선택 D"
+    elif "지구과학" in sub:
+        return "선택 E"
+    elif "기하" in sub:
+        return "선택 F"
+    else:
+        return sub
+
 @app.route("/")
 def hello():
     return "hello"
@@ -49,8 +64,8 @@ def returnSchedule(date):
         responseData = responseData["hisTimetable"][1]["row"]
         result = []
         for item in responseData:
-            print(item["ALL_TI_YMD"], item["PERIO"], item["ITRT_CNTNT"])
-            result.append({"weekday":weekday, "period":item["PERIO"], "item":item["ITRT_CNTNT"]})
+            result.append({"weekday":weekday, "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
+        print(result)
         return {"code":200, "data":result}
     else:
         return {"code":response.getcode()}
