@@ -66,7 +66,7 @@ def returnSchedule(date):
 
         responseData = responseData["hisTimetable"][1]["row"]
         result = []
-        weekday_arr = ["월", "화", "수", "목", "금", "토", "일"]
+        weekday_arr = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
         for item in responseData:
             result.append({"weekday":weekday, "weekday_str":weekday_arr[weekday], "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
         return json.dumps({"code":200, "data":result})
