@@ -67,8 +67,7 @@ def returnSchedule(date):
         result = []
         for item in responseData:
             result.append({"weekday":weekday, "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
-        print(result)
-        return {"code":200, "data":result}
+        return json.dumps({"code":200, "data":result})
     else:
         return {"code":response.getcode()}
 
