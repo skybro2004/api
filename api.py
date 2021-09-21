@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 import flask
 import urllib.request as ul
 import urllib.parse as parse
