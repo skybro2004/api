@@ -27,7 +27,7 @@ def returnSchedule(date):
     dateFrom = dateFrom.strftime("%Y%m%d")
     dateTo = dateTo.strftime("%Y%m%d")
 
-    url =  f"https://open.neis.go.kr/hub/hisTimetable?KEY={neisKey}&Type=json"
+    url = f"https://open.neis.go.kr/hub/hisTimetable?KEY={neisKey}&Type=json"
     url += f"&Type=json"
     url += f"&ATPT_OFCDC_SC_CODE=J10"
     url += f"&SD_SCHUL_CODE=7530081"
