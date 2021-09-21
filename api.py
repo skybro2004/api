@@ -59,6 +59,7 @@ def returnSchedule(date):
         responseData = json.loads(responseData)
         try:
             if responseData["RESULT"]["MESSAGE"]=="해당하는 데이터가 없습니다.":
+                print("code : 404")
                 return {"code":404}
         except KeyError:
             pass
@@ -67,9 +68,10 @@ def returnSchedule(date):
         result = []
         for item in responseData:
             result.append({"weekday":weekday, "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
-        print(result)
-        return {"code":200, "data":result}
+        print(f"code : 200, data : {result}")
+        return json.dumps({"code":200, "data":result})
     else:
+        print(f"code : {response.getcode()}")
         return {"code":response.getcode()}
 
 
