@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 import flask
 import urllib.request as ul
 import urllib.parse as parse
@@ -60,17 +62,19 @@ def returnSchedule():
         responseData = json.loads(responseData)
         try:
             if responseData["RESULT"]["MESSAGE"]=="해당하는 데이터가 없습니다.":
+                print("code : 404")
                 return {"code":404}
         except KeyError:
             pass
 
         responseData = responseData["hisTimetable"][1]["row"]
         result = []
+        weekday_arr = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
         for item in responseData:
-            result.append({"weekday":weekday, "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
-        print(result)
-        return {"code":200, "data":result}
+            result.append({"weekday":weekday, "weekday_str":weekday_arr[weekday], "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
+        return json.dumps({"code":200, "data":result})
     else:
+        print(f"code : {response.getcode()}")
         return {"code":response.getcode()}
 
 @app.route("/query")
