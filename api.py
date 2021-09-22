@@ -68,11 +68,13 @@ def returnSchedule():
                 return {"code":404}
         except KeyError:
             pass
-
+        print(responseData)
         responseData = responseData["hisTimetable"][1]["row"]
         result = []
         weekday_arr = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
         for item in responseData:
+            date = item["ALL_TI_YMD"]
+            weekday = datetime.date(int(date[0:4]), int(date[4:6]), int(date[6:8])).weekday()
             result.append({"weekday":weekday, "weekday_str":weekday_arr[weekday], "period":item["PERIO"], "item":selectSubject(item["ITRT_CNTNT"])})
         return json.dumps({"code":200, "data":result})
     else:
