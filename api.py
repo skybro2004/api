@@ -6,9 +6,11 @@ import urllib.parse as parse
 import json, datetime
 
 from flask.wrappers import Request
+from flask_cors import CORS
 
 app = flask.Flask(__name__)
 
+CORS(app, resources={r'*': {'origins': '*'}})
 neisKey = "028278aaacd242438668d46a5464e934"
 
 def selectSubject(sub):
