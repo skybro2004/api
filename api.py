@@ -3,6 +3,8 @@ import urllib.request as ul
 import urllib.parse as parse
 import json, datetime
 
+from flask.wrappers import Request
+
 app = flask.Flask(__name__)
 
 neisKey = "028278aaacd242438668d46a5464e934"
@@ -26,8 +28,9 @@ def selectSubject(sub):
 def hello():
     return "hello"
 
-@app.route("/schedular/<date>")
-def returnSchedule(date):
+@app.route("/schedular")
+def returnSchedule():
+    date = flask.request.args.get("date")
     year = int(date[0:4])
     month = int(date[4:6])
     day = int(date[6:8])
@@ -69,6 +72,11 @@ def returnSchedule(date):
         return {"code":200, "data":result}
     else:
         return {"code":response.getcode()}
+
+@app.route("/query")
+def query():
+    arg = flask.request.args.get("test-query")
+    return "쿼리 : " + arg
 
 
 if __name__=="__main__":
