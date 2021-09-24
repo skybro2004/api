@@ -35,6 +35,8 @@ def hello():
 @app.route("/schedular")
 def returnSchedule():
     date = flask.request.args.get("date")
+    if date==None:
+        date = datetime.datetime.now().strftime("%Y%m%d")
     year = int(date[0:4])
     month = int(date[4:6])
     day = int(date[6:8])
@@ -84,7 +86,31 @@ def returnSchedule():
 @app.route("/meal")
 def meal():
     date = flask.request.args.get("date")
-    return date
+    if date==None:
+        date = datetime.datetime.now().strftime("%Y%m%d")
+    year = int(date[0:4])
+    month = int(date[4:6])
+    day = int(date[6:8])
+    url = f"https://open.neis.go.kr/hub/mealServiceDietInfo?KEY={neisKey}&Type=json"
+    url += f"&ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7530081"
+    url += f"&MLSV_FROM_YMD={date}&MLSV_TO_YMD={date}"
+
+    request = ul.Request(url)
+    response = ul.urlopen(request)
+    if response.getcode()==200:
+        responseData = response.read()
+        responseData = json.loads(responseData)
+        try:
+            responseData = responseData["mealServiceDietInfo"][1]["row"][0]
+        except KeyError:
+            return {"code":404, "meal":"급식이 없어요!"}
+        Meal = responseData["DDISH_NM"]
+        Meal = list(Meal.split("<br/>"))
+        Calorie = responseData["CAL_INFO"]
+        return {"code":200, "meal":Meal, "cal":Calorie}
+
+    else:
+        return {"code":response.getcode()}
 
 @app.route("/query")
 def query():
