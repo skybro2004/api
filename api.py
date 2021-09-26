@@ -103,14 +103,14 @@ def meal():
         try:
             responseData = responseData["mealServiceDietInfo"][1]["row"][0]
         except KeyError:
-            return {"code":404, "meal":"급식이 없어요!"}
+            return json.dumps({"code":404, "meal":"급식이 없어요!"})
         Meal = responseData["DDISH_NM"]
         Meal = list(Meal.split("<br/>"))
         Calorie = responseData["CAL_INFO"]
-        return {"code":200, "meal":Meal, "cal":Calorie}
+        return json.dumps({"code":200, "meal":Meal, "cal":Calorie})
 
     else:
-        return {"code":response.getcode()}
+        return json.dumps({"code":response.getcode()})
 
 @app.route("/query")
 def query():
