@@ -37,6 +37,12 @@ def returnSchedule():
     date = flask.request.args.get("date")
     if date==None:
         date = datetime.datetime.now().strftime("%Y%m%d")
+    grade = flask.request.args.get("grade")
+    if grade==None:
+        grade = 1
+    schlClass = flask.request.args.get("class")
+    if schlClass==None:
+        schlClass = 1
     year = int(date[0:4])
     month = int(date[4:6])
     day = int(date[6:8])
@@ -55,8 +61,8 @@ def returnSchedule():
     url += f"&Type=json"
     url += f"&ATPT_OFCDC_SC_CODE=J10"
     url += f"&SD_SCHUL_CODE=7530081"
-    url += f"&GRADE=2"
-    url += f"&CLASS_NM=8"
+    url += f"&GRADE={grade}"
+    url += f"&CLASS_NM={schlClass}"
     url += f"&TI_FROM_YMD={dateFrom}&TI_TO_YMD={dateTo}"
 
     request = ul.Request(url)
