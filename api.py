@@ -8,6 +8,8 @@ import json, datetime
 from flask.wrappers import Request
 from flask_cors import CORS
 
+import marker
+
 app = flask.Flask(__name__)
 
 CORS(app, resources={r'*': {'origins': '*'}})
@@ -31,6 +33,11 @@ def selectSubject(sub):
 @app.route("/")
 def hello():
     return "hello"
+
+@app.route("/query")
+def query():
+    arg = flask.request.args.get("test-query")
+    return "쿼리 : " + arg
 
 @app.route("/schedular")
 def returnSchedule():
@@ -118,11 +125,23 @@ def meal():
     else:
         return json.dumps({"code":response.getcode()})
 
-@app.route("/query")
-def query():
-    arg = flask.request.args.get("test-query")
-    return "쿼리 : " + arg
 
+"""@app.route("/calendar")
+def calendar():
+    dateFrom = flask.request.args.get("dateFrom")
+    dateTo = flask.request.args.get("dateTo")
+    if dateFrom==None or dateTo==None:
+        return json.dumps({"code":404, "message":"입력값을 제대로 입력해주세요!"})"""
+
+
+@app.route("/marker")
+def marker():
+    sheetName = flask.request.args.get("show")
+    if sheetName==None:
+        return marker.getAll()
+    else:
+        return marker.getSheet(sheetName)
+    
 
 if __name__=="__main__":
     app.run(host="0.0.0.0", port="5000")
