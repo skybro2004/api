@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect("answerSheet.db")
+con = sqlite3.connect("answerSheet.db", check_same_thread=False)
 cur = con.cursor()
 
 def getAll():

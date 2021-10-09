@@ -9,8 +9,10 @@ from flask.wrappers import Request
 from flask_cors import CORS
 
 import marker
+from marker import getAll, getSheet
 
 app = flask.Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 CORS(app, resources={r'*': {'origins': '*'}})
 neisKey = "028278aaacd242438668d46a5464e934"
@@ -126,21 +128,13 @@ def meal():
         return json.dumps({"code":response.getcode()})
 
 
-"""@app.route("/calendar")
-def calendar():
-    dateFrom = flask.request.args.get("dateFrom")
-    dateTo = flask.request.args.get("dateTo")
-    if dateFrom==None or dateTo==None:
-        return json.dumps({"code":404, "message":"입력값을 제대로 입력해주세요!"})"""
-
-
 @app.route("/marker")
 def marker():
     sheetName = flask.request.args.get("show")
     if sheetName==None:
-        return marker.getAll()
+        return json.dumps(getAll())
     else:
-        return marker.getSheet(sheetName)
+        return json.dumps(getSheet(sheetName))
     
 
 if __name__=="__main__":
