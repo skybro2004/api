@@ -19,20 +19,37 @@ neisKey = "028278aaacd242438668d46a5464e934"
 
 def selectSubject(grade, schlClass, sub):
     if grade==2:
-        if schlClass==8:
-    #print(sub)
-    if "고전문학" in sub:
-        return "선택 A"
-    elif "생활과" in sub:
-        return "선택 C"
-    elif "생명" in sub:
-        return "선택 D"
-    elif "지구과학" in sub:
-        return "선택 E"
-    elif "기하" in sub:
-        return "선택 F"
-    else:
-        return sub
+        if schlClass==3:
+            if "화학" in sub:
+                return "선택 A"
+            elif "중국어" in sub:
+                return "선택 C"
+            elif "정치" in sub:
+                return "선택 D"
+            elif "심화 영어 독해" in sub:
+                return "선택 E"
+            elif "생명" in sub:
+                return "선택 F"
+
+        elif schlClass==8:
+            if "고전문학" in sub:
+                return "선택 A"
+            elif "생활과" in sub:
+                return "선택 C"
+            elif "생명" in sub:
+                return "선택 D"
+            elif "지구과학" in sub:
+                return "선택 E"
+            elif "기하" in sub:
+                return "선택 F"
+
+        elif schlClass==9:
+            if "생명" in sub:
+                return "선택 A"
+            elif "지구" in sub:
+                return "선택 D"
+
+    return sub
         """
         3반
         화학 : A
