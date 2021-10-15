@@ -18,8 +18,8 @@ CORS(app, resources={r'*': {'origins': '*'}})
 neisKey = "028278aaacd242438668d46a5464e934"
 
 def selectSubject(grade, schlClass, sub):
-    if grade==2:
-        if schlClass==3:
+    if grade=="2":
+        if schlClass=="3":
             if "화학" in sub:
                 return "선택 A"
             elif "중국어" in sub:
@@ -31,7 +31,7 @@ def selectSubject(grade, schlClass, sub):
             elif "생명" in sub:
                 return "선택 F"
 
-        elif schlClass==8:
+        elif schlClass=="8":
             if "고전문학" in sub:
                 return "선택 A"
             elif "생활과" in sub:
@@ -43,32 +43,14 @@ def selectSubject(grade, schlClass, sub):
             elif "기하" in sub:
                 return "선택 F"
 
-        elif schlClass==9:
+        elif schlClass=="9":
             if "생명" in sub:
                 return "선택 A"
             elif "지구" in sub:
                 return "선택 D"
 
     return sub
-        """
-        3반
-        화학 : A
-        짱깨어 : C
-        정법 : D
-        심독 : E
-        생명 : F
 
-        8반
-        고전문학 : A
-        생과 : C
-        생명 : D
-        지구 : E
-        기하 : F
-
-        9반
-        윤사 : A
-        지구 : D
-        """
 
 @app.route("/")
 def hello():
