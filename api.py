@@ -8,7 +8,11 @@ import json, datetime
 from flask.wrappers import Request
 from flask_cors import CORS
 
+import marker
+from marker import getAll, getSheet
+
 app = flask.Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 CORS(app, resources={r'*': {'origins': '*'}})
 neisKey = "028278aaacd242438668d46a5464e934"
@@ -29,10 +33,34 @@ def selectSubject(grade, schlClass, sub):
         return "선택 F"
     else:
         return sub
+        """
+        3반
+        화학 : A
+        짱깨어 : C
+        정법 : D
+        심독 : E
+        생명 : F
+
+        8반
+        고전문학 : A
+        생과 : C
+        생명 : D
+        지구 : E
+        기하 : F
+
+        9반
+        윤사 : A
+        지구 : D
+        """
 
 @app.route("/")
 def hello():
     return "hello"
+
+@app.route("/query")
+def query():
+    arg = flask.request.args.get("test-query")
+    return "쿼리 : " + arg
 
 @app.route("/schedular")
 def returnSchedule():
@@ -120,11 +148,15 @@ def meal():
     else:
         return json.dumps({"code":response.getcode()})
 
-@app.route("/query")
-def query():
-    arg = flask.request.args.get("test-query")
-    return "쿼리 : " + arg
 
+@app.route("/marker")
+def marker():
+    sheetName = flask.request.args.get("show")
+    if sheetName==None:
+        return json.dumps(getAll())
+    else:
+        return json.dumps(getSheet(sheetName))
+    
 
 if __name__=="__main__":
     app.run(host="0.0.0.0", port="5000")
