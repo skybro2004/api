@@ -31,6 +31,25 @@ def selectSubject(sub):
         return "선택 F"
     else:
         return sub
+        """
+        3반
+        화학 : A
+        짱깨어 : C
+        정법 : D
+        심독 : E
+        생명 : F
+
+        8반
+        고전문학 : A
+        생과 : C
+        생명 : D
+        지구 : E
+        기하 : F
+
+        9반
+        윤사 : A
+        지구 : D
+        """
 
 @app.route("/")
 def hello():
