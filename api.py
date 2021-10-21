@@ -3,7 +3,8 @@
 import flask
 import urllib.request as ul
 import urllib.parse as parse
-import json, datetime
+import json, datetime, re
+from flask.templating import render_template
 
 from flask.wrappers import Request
 from flask_cors import CORS
@@ -53,6 +54,13 @@ def selectSubject(grade, schlClass, sub):
 
 
 @app.route("/")
+def info():
+    pass
+    #/html/index.html로 이동
+    return render_template('index.html')
+    
+
+@app.route("/hello")
 def hello():
     return "hello"
 
@@ -139,10 +147,16 @@ def meal():
             responseData = responseData["mealServiceDietInfo"][1]["row"][0]
         except KeyError:
             return json.dumps({"code":404, "meal":"급식이 없어요!"})
-        Meal = responseData["DDISH_NM"]
-        Meal = list(Meal.split("<br/>"))
+        meals_raw = responseData["DDISH_NM"]
+        meals_raw = list(meals_raw.split("<br/>"))
+        meals = []
+        for meal in meals_raw:
+            meal = meal.split("(7)")[0]
+            meal = re.sub('[0-9]*\.', '', meal)
+            meals.append(meal)
         Calorie = responseData["CAL_INFO"]
-        return json.dumps({"code":200, "meal":Meal, "cal":Calorie})
+        print(meals)
+        return json.dumps({"code":200, "meal":meals, "cal":Calorie})
 
     else:
         return json.dumps({"code":response.getcode()})
