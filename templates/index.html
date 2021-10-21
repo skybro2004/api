@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>
+            api 사용법
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+        <!--test plz delete before upload-->
+        <link rel="stylesheet" href="../static/css/index.css">
+
+    </head>
+    <body>
+        <main>
+            <div class="info-container">
+                <div class="info-container-header">
+                    <h2>API 사용법</h2>
+                </div>
+                
+                <div class="info-container-main">
+                    <div id="debug" class="info-content">
+                        <h3>디버그</h3>
+                        <div>
+                            <h4>/hello</h4>
+                            <h5>return "hello"</h5>
+                            <p>hello 를 출력합니다.</p>
+                        </div>
+                        <hr>
+                        <div>
+                            <h4>/query<br>
+                            ?test-query={value}</h4>
+                            <h5>return "쿼리 : {value}"</h5>
+                            <p>입력한 쿼리를 출력합니다.</p>
+                        </div>
+                    </div>
+                
+                    <div id="schedular" class="info-content">
+                        <h3>시간표</h3>
+                        <div>
+                            <h4>/schedular<br>
+                            ?date={date}<br>
+                            &grade={grade}<br>
+                            &class={class}</h4>
+                            <h5>
+                                {"code":리턴코드, "header":{"dateFrom":데이터 시작날짜, "dateTo":데이터 종료날짜}, "data":[{"weekday":요일(숫자), "weekday_str":요일(문자), "period":교시, "item":수업 이름}]}
+                            </h5>
+                            <p>입력한 날이 포함된 주의 시간표를 json 형식으로 제공합니다.<br>
+                            서현고등학교 전용이며, 타 학교는 추후 지원할 예정입니다.</p>
+                        </div>
+                    </div>
+                
+
+                
+                    <div id="meal" class="info-content">
+                        <h3>급식</h3>
+                        <div>
+                            <h4>/meal<br>
+                            ?date={date}</h4>
+                            <h5>
+                                {"code":리턴코드, "meal":급식 리스트, "cal":칼로리}
+                            </h5>
+                            <p>입력한 날의 급식 정보를 json으로 제공합니다.<br>
+                            서현고등학교 전용이며, 타 학교는 추후 지원할 예정입니다.</p>
+                        </div>
+                    </div>
+
+                    <div id="marker" class="info-content">
+                        <h3>답지</h3>
+                        <div>
+                            <h4>/marker</h4>
+                            <h5>준비중입니다.</h5>
+                            <p>문제집 등의 답지 정보를 json으로 제공합니다.<br>
+                            추후 제공할 예정입니다.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                
+            </div>
+        </main>
+        
+    </body>
+</html>
