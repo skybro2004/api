@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>
             api 사용법
         </title>
@@ -41,9 +42,11 @@
                             ?date={date}<br>
                             &grade={grade}<br>
                             &class={class}</h4>
-                            <h5>
-                                {"code":리턴코드, "header":{"dateFrom":데이터 시작날짜, "dateTo":데이터 종료날짜}, "data":[{"weekday":요일(숫자), "weekday_str":요일(문자), "period":교시, "item":수업 이름}]}
-                            </h5>
+                            <div class="response-format">
+                                <h5>
+                                    {"code":리턴코드, "header":{"dateFrom":데이터 시작날짜, "dateTo":데이터 종료날짜}, "data":[{"weekday":요일(숫자), "weekday_str":요일(문자), "period":교시, "item":수업 이름}]}
+                                </h5>
+                            </div>
                             <p>입력한 날이 포함된 주의 시간표를 json 형식으로 제공합니다.<br>
                             서현고등학교 전용이며, 타 학교는 추후 지원할 예정입니다.</p>
                         </div>
@@ -56,9 +59,11 @@
                         <div>
                             <h4>/meal<br>
                             ?date={date}</h4>
-                            <h5>
-                                {"code":리턴코드, "meal":급식 리스트, "cal":칼로리}
-                            </h5>
+                            <div class="response-format">
+                                <h5>
+                                    {"code":리턴코드, "meal":급식 리스트, "cal":칼로리}
+                                </h5>
+                            </div>
                             <p>입력한 날의 급식 정보를 json으로 제공합니다.<br>
                             서현고등학교 전용이며, 타 학교는 추후 지원할 예정입니다.</p>
                         </div>

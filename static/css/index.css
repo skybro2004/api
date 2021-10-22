@@ -27,19 +27,24 @@ hr{
     background: #ECF0F3;
     box-shadow:  5px 5px 10px #b1b4b6,
     -5px -5px 5px #ffffff;
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .info-container{
     width: fit-content;
     max-width: 80%;
     border-radius: 1em;
     margin-top: 3em;
-    padding: 1em;
+    padding: 1em 0 0 1em;
 }
 .info-container-header{
     width: auto;
     text-align: center;
     padding: 0.4em 0.8em;
     margin-bottom: 2em;
+    margin-right: 1em;
 
 }
 .info-container-main{
@@ -56,5 +61,32 @@ hr{
     max-width: 10em;
 }
 h5{
+    
     margin: 0.4em 0;
+    white-space: nowrap;
+    word-break: keep-all;
+    word-wrap: normal;
+    
+}
+.response-format{
+    overflow-x: scroll;
+    border-radius: 5px;
+background: inherit;
+box-shadow: inset 2px 2px 4px #bebebe,
+            inset -2px -2px 4px #ffffff;
+    padding: 0 0.4em;
+}
+.response-format::-webkit-scrollbar{
+    height: 10px;
+}
+.response-format::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: greenyellow;
+    
+}
+.response-format::-webkit-scrollbar-track{
+    border-radius: 5px;
+    background: #e0e0e0;
+    box-shadow: inset 1px 1px 2px #bebebe,
+    inset -1px -1px 2px #ffffff;
 }
