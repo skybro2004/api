@@ -81,7 +81,8 @@ box-shadow: inset 2px 2px 4px #bebebe,
 }
 .response-format::-webkit-scrollbar-thumb{
     border-radius: 5px;
-    background-color: greenyellow;
+    /*background-color: #2ECC71;*/
+    background: linear-gradient(to bottom, #36F286, #2ECC71);
     
 }
 .response-format::-webkit-scrollbar-track{
