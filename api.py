@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*- 
 
+isDebug = False
+
 import flask
 import urllib.request as ul
 import urllib.parse as parse
@@ -164,12 +166,47 @@ def meal():
 
 @app.route("/marker")
 def marker():
-    sheetName = flask.request.args.get("show")
-    if sheetName==None:
-        return json.dumps(getAll())
+    studGrade = flask.request.args.get("grade")
+    studClass = flask.request.args.get("class")
+
+    bookName = flask.request.args.get("book")
+    index = flask.request.args.get("index")
+    if bookName==None:
+        return json.dumps(getAll(studGrade, studClass))
     else:
-        return json.dumps(getSheet(sheetName))
+        if index==None:
+            return json.dumps(getSheet(bookName, 0))
+        else:
+            return json.dumps(getSheet(bookName, index))
+    
     
 
+
+    """
+    데이터 구조
+    return json.dumps({
+        "code":200,
+        header:{
+            "bookId":asdf,
+            "bookName":adsf,
+            grade class .....
+        },
+        "data":{
+            "header":{
+                "index":asdf,
+                dafasfasfasdf
+            },
+            "data":{
+                1:{"type":"int", "value":5}
+                2:{"type":"int", "value":4}
+                3:{"type":"int", "value":1}
+                4:{"type":"str", "value":"a = 5"}
+                5:{"type":"str", "value":"y = 2x^2 + 3x + 5"}
+                6:{"type":"img", "value":"https://img.skybro2004.com/asdfsdf"}
+            }
+        }
+    })
+    """
+
 if __name__=="__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5000", debug=isDebug)
