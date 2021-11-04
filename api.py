@@ -5,6 +5,7 @@ isDebug = False
 import flask
 import urllib.request as ul
 import urllib.parse as parse
+import ssl
 import json, datetime, re
 from flask.templating import render_template
 
@@ -104,8 +105,9 @@ def returnSchedule():
     url += f"&CLASS_NM={schlClass}"
     url += f"&TI_FROM_YMD={dateFrom}&TI_TO_YMD={dateTo}"
 
+    context = ssl._create_unverified_context()
     request = ul.Request(url)
-    response = ul.urlopen(request)
+    response = ul.urlopen(request, context=context)
     if response.getcode()==200:
         responseData = response.read()
         responseData = json.loads(responseData)
@@ -140,8 +142,9 @@ def meal():
     url += f"&ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7530081"
     url += f"&MLSV_FROM_YMD={date}&MLSV_TO_YMD={date}"
 
+    context = ssl._create_unverified_context()
     request = ul.Request(url)
-    response = ul.urlopen(request)
+    response = ul.urlopen(request, context=context)
     if response.getcode()==200:
         responseData = response.read()
         responseData = json.loads(responseData)
