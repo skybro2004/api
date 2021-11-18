@@ -30,9 +30,12 @@ def getMeal(officeCode, schlCode, date):
         meals_raw = list(meals_raw.split("<br/>"))
         meals = []
         for meal in meals_raw:
-            meal = meal.split("(7)")[0]
-            meal = re.sub('[0-9]*\.', '', meal)
-            meals.append(meal)
+            meal = re.sub('[(][0-9][)]', '', meal)
+            allergy = re.findall(r'[0-9]+[.]', meal)
+            for i in range(len(allergy)):
+                allergy[i] = allergy[i].replace(".", "")
+            meal = re.sub('[0-9]+[.]', '', meal)
+            meals.append({"name":meal, "allergy":allergy})
         Calorie = responseData["CAL_INFO"]
         print(meals)
         return json.dumps({"code":200, "meal":meals, "cal":Calorie})
