@@ -37,36 +37,24 @@ def hello():
 
 @app.route("/query")
 def query():
-    arg = flask.request.args.get("test-query")
+    arg = flask.request.args.get("test-query", "default string")
     return "쿼리 : " + arg
 
 
 
 @app.route("/schedular")
 def showSchedule():
-    officeCode = flask.request.args.get("officeCode")
-    if officeCode==None:
-        officeCode = "J10"
+    officeCode = flask.request.args.get("officeCode", "J10")
 
-    schlCode = flask.request.args.get("schlCode")
-    if schlCode==None:
-        schlCode = "7530081"
+    schlCode = flask.request.args.get("schlCode", "7530081")
 
-    grade = flask.request.args.get("grade")
-    if grade==None:
-        grade = 1
+    grade = flask.request.args.get("grade", "1")
 
-    schlClass = flask.request.args.get("class")
-    if schlClass==None:
-        schlClass = 1
+    schlClass = flask.request.args.get("class", "1")
 
-    date = flask.request.args.get("date")
-    if date==None:
-        date = datetime.datetime.now().strftime("%Y%m%d")
+    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
 
-    dateRange = flask.request.args.get("range")
-    if dateRange==None:
-        dateRange = "day"
+    dateRange = flask.request.args.get("range", "day")
 
 
     return schedular.getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange)
@@ -75,17 +63,11 @@ def showSchedule():
 
 @app.route("/meal")
 def showMeal():
-    officeCode = flask.request.args.get("officeCode")
-    if officeCode==None:
-        officeCode = "J10"
+    officeCode = flask.request.args.get("officeCode", "J10")
 
-    schlCode = flask.request.args.get("schlCode")
-    if schlCode==None:
-        schlCode = "7530081"
+    schlCode = flask.request.args.get("schlCode", "7530081")
 
-    date = flask.request.args.get("date")
-    if date==None:
-        date = datetime.datetime.now().strftime("%Y%m%d")
+    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
 
 
     return meal.getMeal(officeCode, schlCode, date)
@@ -135,6 +117,17 @@ def mark():
         }
     })
     """
+
+
+
+@app.route("/mealSurvey", methods=["GET"])
+def getSurveyData():
+    return 0
+    
+
+@app.route("/mealSurvey", methods=["POST"])
+def postSurveyData():
+    return 0 
 
 
 
