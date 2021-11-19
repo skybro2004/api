@@ -13,6 +13,7 @@ from flask_cors import CORS
 from modules import marker
 from modules import schedular
 from modules import meal
+from modules import survey
 
 app = flask.Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -122,13 +123,28 @@ def mark():
 
 @app.route("/mealSurvey", methods=["GET"])
 def getSurveyData():
-    return 0
+    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
+
+    res = survey.getSurvey(date)
+    if(res==404):
+        return {"header":{"code":404}}
+    else:
+        return {"header":{"code":200}, "data":res}
     
 
 @app.route("/mealSurvey", methods=["POST"])
 def postSurveyData():
-    return 0 
+    return 0
 
+
+
+@app.route("/mealMsg", methods=["GET"])
+def getMsgData():
+    return 0
+
+@app.route("/mealMsg", methods=["POST"])
+def postMsgData():
+    return 0
 
 
 if __name__=="__main__":

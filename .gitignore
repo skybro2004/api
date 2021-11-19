@@ -2,3 +2,4 @@ tempCodeRunnerFile.py
 __pycache__
 answerSheet.db-journal
 core
+*.db
