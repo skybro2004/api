@@ -8,12 +8,14 @@ def getSurvey(date):
     year = date[0:4]
     month = date[4:6]
     day = date[6:8]
+
     con = sqlite3.connect(f"./resources/serveyData/{year[2:]}-{month}.db")
     cur = con.cursor()
 
     try:
         cur.execute(f"SELECT * FROM day{day}")
     except sqlite3.OperationalError:
+        print("404")
         return 404
 
 
@@ -32,7 +34,7 @@ def getSurvey(date):
 
     for i, value in enumerate(rates):
         if value[0]==0:
-            rates[i] = -1
+            rates[i] = 0
         else:
             rates[i] = round(value[1]/value[0], 2)
 
@@ -52,12 +54,56 @@ def storeSurvey(date, value):
     cur = con.cursor()
     cur.execute(f"CREATE TABLE IF NOT EXISTS day{day}(quality INTEGER, quantity INTEGER, menuRate TEXT)")
 
-    cur.execute(f"INSERT INTO day{day} VALUES ({value['quality']}, {value['quantity']}, {str(value['mealIndex']) + '.' + str(value['mealRate'])})")
+    cur.execute(f"INSERT INTO day{day} VALUES ({value['quality']}, {value['quantity']}, {str(value['menuIndex']) + '.' + str(value['menuRate'])})")
 
     con.commit()
     con.close()
 
-    return 0
+    return 200
+
+
+
+def getMsg(date):
+    year = date[0:4]
+    month = date[4:6]
+    day = date[6:8]
+
+    con = sqlite3.connect(f"./resources/serveyMsg/{year[2:]}.db")
+    cur = con.cursor()
+
+    try:
+        cur.execute(f"SELECT msg FROM month{month} WHERE day='{day}'")
+    except sqlite3.OperationalError:
+        print("404")
+        return 404
+
+    msgList = []
+
+    for item in cur.fetchall():
+        msgList.append(item[0])
+
+
+    return {"msgList": msgList}
+
+
+
+def storeMsg(date, msg):
+    print(msg)
+    year = date[0:4]
+    month = date[4:6]
+    day = date[6:8]
+
+    con = sqlite3.connect(f"./resources/serveyMsg/{year[2:]}.db")
+    cur = con.cursor()
+    cur.execute(f"CREATE TABLE IF NOT EXISTS month{month}(day INTEGER, msg TEXT)")
+
+    cur.execute(f"INSERT INTO month{month} VALUES ('{day}', '{msg}')")
+
+    con.commit()
+    con.close()
+
+    return 200
+
 
 
 
