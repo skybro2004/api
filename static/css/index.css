@@ -1,4 +1,4 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400&display=swap');
 
 :root{
     font-size: 1.2em;
@@ -97,58 +97,3 @@ box-shadow: inset 2px 2px 4px #bebebe,
 }
 
 
-*/
-
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400&display=swap');
-
-:root{
-    --bgcolor:#353535;
-}
-
-*{
-    margin: 0;
-    padding: 0;
-    color: rgb(212, 212, 212);
-    font-family: 'Nanum Gothic', sans-serif;
-}
-
-body{
-    width: 100%;
-    min-height: 100vh;
-    background-image: url("/static/img/head-removebg.png");
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-color: var(--bgcolor);
-    
-}
-
-.container{
-    background: rgba( 255, 255, 255, 0.2 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 7px );
-    -webkit-backdrop-filter: blur( 7px );
-    border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    width: 80%;
-    padding: 0.4em 0.8em;
-
-}
-
-header{
-    margin-top: 5%;
-    margin-bottom: 2em;
-    display: flex;
-    justify-content: center;
-}
-header .container{
-}
-.container h1{
-    text-align: center;
-    
-}
-
-
-main{
-    display: flex;
-    justify-content: center;
-}
