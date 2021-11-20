@@ -130,7 +130,7 @@ def getSurveyData():
         return json.dumps({"header":{"code":404}})
     else:
         #return {"header":{"code":200, "meal":json.loads(meal.getMeal("J10", "7530081", date))}, "data":res}
-        return json.dumps({"header":{"code":200, "meal":json.loads(meal.getMeal("J10", "7530081", "20211123"))}, "data":res})
+        return json.dumps({"header":{"code":200, "meal":json.loads(meal.getMeal("J10", "7530081", date))}, "data":res})
     
 
 @app.route("/mealSurvey", methods=["POST"])
