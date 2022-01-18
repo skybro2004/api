@@ -121,6 +121,20 @@ def mark():
 
 
 
+@app.route("/image", methods=["GET"])
+def getImage():
+    category = flask.request.args.get("category", "dccon")
+    name = flask.request.args.get("name")
+    if name==None:
+        return 
+    path = f"./images/{category}/"
+    return flask.send_file('./modules/images/dccon/asdf.gif',
+        mimetype = "image/gif",
+        as_attachment=True)
+    return flask.send_from_directory(directory="file", filename=path + "asdf.gif")
+
+
+
 @app.route("/mealSurvey", methods=["GET"])
 def getSurveyData():
     date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
