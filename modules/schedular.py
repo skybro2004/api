@@ -5,9 +5,12 @@ import datetime, json
 neisKey = "028278aaacd242438668d46a5464e934"
 
 
+subjectData = {}
+with open("/home/pi/api/modules/schedular.json", "r") as raw_data:
+    subjectData = json.load(raw_data)
 
 def selectSubject(grade, schlClass, sub):
-    if grade=="2":
+    """if grade=="2":
 
         if schlClass=="1":
             if "경제" in sub:
@@ -128,11 +131,11 @@ def selectSubject(grade, schlClass, sub):
                 return "선택 E"
             elif "지구과학" in sub:
                 return "선택 F"
-
-
-    
-    return sub
-
+    """
+    try:
+        return subjectData[grade][schlClass][sub]
+    except KeyError:
+        return sub
 
 
 
@@ -166,6 +169,8 @@ def getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange):
     url += f"&GRADE={grade}"
     url += f"&CLASS_NM={schlClass}"
     url += f"&TI_FROM_YMD={dateFrom}&TI_TO_YMD={dateTo}"
+
+    print(url)
 
     context = ssl._create_unverified_context()
     request = ul.Request(url)
