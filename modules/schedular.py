@@ -3,10 +3,11 @@ import ssl
 import datetime, json
 
 neisKey = "028278aaacd242438668d46a5464e934"
+path = "/home/sj/api"
 
 
 subjectData = {}
-with open("/home/pi/api/modules/schedular.json", "r") as raw_data:
+with open(f"{path}/modules/schedular.json", "r") as raw_data:
     subjectData = json.load(raw_data)
 
 def selectSubject(grade, schlClass, sub):

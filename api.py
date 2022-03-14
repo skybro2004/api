@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 
-isDebug = True
+isDebug = False
 
 import flask
 import urllib.parse as parse
