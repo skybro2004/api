@@ -183,7 +183,7 @@ def getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange):
         try:
             if responseData["RESULT"]["MESSAGE"]=="해당하는 데이터가 없습니다.":
                 #print("code : 404")
-                return json.dumps({"code":404})
+                return json.dumps({"code":404, "header":{"dateFrom":dateFrom, "dateTo":dateTo}})
         except KeyError:
             pass
         #print(responseData)
