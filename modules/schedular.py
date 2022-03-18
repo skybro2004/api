@@ -133,6 +133,7 @@ def selectSubject(grade, schlClass, sub):
             elif "지구과학" in sub:
                 return "선택 F"
     """
+    sub = sub.replace("[보강]", "")
     try:
         return subjectData[grade][schlClass][sub]
     except KeyError:
