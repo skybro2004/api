@@ -172,8 +172,6 @@ def getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange):
     url += f"&CLASS_NM={schlClass}"
     url += f"&TI_FROM_YMD={dateFrom}&TI_TO_YMD={dateTo}"
 
-    print(url)
-
     context = ssl._create_unverified_context()
     request = ul.Request(url)
     response = ul.urlopen(request, context=context)
@@ -183,11 +181,9 @@ def getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange):
         responseData = json.loads(responseData)
         try:
             if responseData["RESULT"]["MESSAGE"]=="해당하는 데이터가 없습니다.":
-                #print("code : 404")
                 return json.dumps({"code":404, "header":{"dateFrom":dateFrom, "dateTo":dateTo}})
         except KeyError:
             pass
-        #print(responseData)
         responseData = responseData["hisTimetable"][1]["row"]
         result = []
         weekday_arr = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
@@ -197,5 +193,4 @@ def getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange):
             result.append({"weekday":weekday, "weekday_str":weekday_arr[weekday], "period":item["PERIO"], "item":selectSubject(grade, schlClass, item["ITRT_CNTNT"])})
         return json.dumps({"code":200, "header":{"dateFrom":dateFrom, "dateTo":dateTo}, "data":result})
     else:
-        #print(f"code : {response.getcode()}")
         return json.dumps({"code":response.getcode()})
