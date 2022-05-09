@@ -35,9 +35,9 @@ def getMeal(officeCode, schlCode, date):
             for i in range(len(allergy)):
                 allergy[i] = allergy[i].replace(".", "")
             meal = re.sub('[0-9]+[.]', '', meal)
+            meal = meal.replace("()", "")
             meals.append({"name":meal, "allergy":allergy})
         Calorie = responseData["CAL_INFO"]
-        print(meals)
         return json.dumps({"code":200, "meal":meals, "cal":Calorie})
 
     else:
