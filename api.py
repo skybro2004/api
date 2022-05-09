@@ -134,52 +134,5 @@ def getImage():
     return flask.send_from_directory(directory="file", filename=path + "asdf.gif")
 
 
-
-@app.route("/mealSurvey", methods=["GET"])
-def getSurveyData():
-    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
-
-    res = survey.getSurvey(date)
-    if(res==404):
-        return json.dumps({"header":{"code":404}})
-    else:
-        #return {"header":{"code":200, "meal":json.loads(meal.getMeal("J10", "7530081", date))}, "data":res}
-        return json.dumps({"header":{"code":200, "meal":json.loads(meal.getMeal("J10", "7530081", date))}, "data":res})
-    
-
-@app.route("/mealSurvey", methods=["POST"])
-def postSurveyData():
-    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
-
-    params = json.loads(flask.request.get_data(), encoding='utf-8')
-    print(params)
-    survey.storeSurvey(date, params)
-    return json.dumps({"code":200})
-
-
-
-@app.route("/mealMsg", methods=["GET"])
-def getMsgData():
-    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
-
-    res = survey.getMsg(date)
-    if(res==404):
-        return json.dumps({"header":{"code":404}})
-    else:
-        pass
-
-    return json.dumps({"header": {"code":200, "date":date}, "data":res})
-
-@app.route("/mealMsg", methods=["POST"])
-def postMsgData():
-    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
-
-    params = json.loads(flask.request.get_data(), encoding='utf-8')
-    print(params, type(params))
-
-    survey.storeMsg(date, params["msg"])
-    return json.dumps({"code":200})
-
-
 if __name__=="__main__":
     app.run(host="0.0.0.0", port="5000", threaded=True, debug=isDebug)
