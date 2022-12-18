@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 
-isDebug = False
+isDebug = True
 
 import flask
 import urllib.parse as parse
@@ -10,10 +10,8 @@ from flask.templating import render_template
 from flask.wrappers import Request
 from flask_cors import CORS
 
-from modules import marker
-from modules import schedular
-from modules import meal
-from modules import survey
+from crosswalk import crosswalk
+
 
 app = flask.Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -25,7 +23,7 @@ CORS(app, resources={r'*': {'origins': '*'}})
 @app.route("/")
 def info():
     pass
-    #/html/index.html로 이동
+    #/templates/index.html로 이동
     return render_template('index.html')
 
 
@@ -43,95 +41,23 @@ def query():
 
 
 
-@app.route("/schedular")
-def showSchedule():
-    officeCode = flask.request.args.get("officeCode", "J10")
+@app.route("/crosswalks", methods=['GET', 'POST'])
+def manageCrosswalkPos():
+    if flask.request.method=='GET':
+        dateFrom = flask.request.args.get("dateFrom", datetime.datetime.now().strftime("%Y%m%d"))
+        dateTo = flask.request.args.get("dateTo", datetime.datetime.now().strftime("%Y%m%d"))
 
-    schlCode = flask.request.args.get("schlCode", "7530081")
-
-    grade = flask.request.args.get("grade", "1")
-
-    schlClass = flask.request.args.get("class", "1")
-
-    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
-
-    dateRange = flask.request.args.get("range", "day")
+        return crosswalk.getCrosswalkPos(dateFrom, dateTo)
 
 
-    return schedular.getSchedul(officeCode, schlCode, grade, schlClass, date, dateRange)
+    if flask.request.method=='POST':
+        value = request.form['value']
+        date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
 
+        crosswalk.storeValue(value)
+        print(value)
+        return value
 
-
-@app.route("/meal")
-def showMeal():
-    officeCode = flask.request.args.get("officeCode", "J10")
-
-    schlCode = flask.request.args.get("schlCode", "7530081")
-
-    date = flask.request.args.get("date", datetime.datetime.now().strftime("%Y%m%d"))
-
-
-    return meal.getMeal(officeCode, schlCode, date)
-
-
-
-@app.route("/marker")
-def mark():
-    studGrade = flask.request.args.get("grade")
-    studClass = flask.request.args.get("class")
-
-    bookName = flask.request.args.get("book")
-    index = flask.request.args.get("index")
-    if bookName==None:
-        return json.dumps(marker.getAll(studGrade, studClass))
-    else:
-        if index==None:
-            return json.dumps(marker.getSheet(bookName, 0))
-        else:
-            return json.dumps(marker.getSheet(bookName, index))
-    
-    
-
-
-    """
-    데이터 구조
-    return json.dumps({
-        "code":200,
-        header:{
-            "bookId":asdf,
-            "bookName":adsf,
-            grade class .....
-        },
-        "data":{
-            "header":{
-                "index":asdf,
-                dafasfasfasdf
-            },
-            "data":{
-                1:{"type":"int", "value":5}
-                2:{"type":"int", "value":4}
-                3:{"type":"int", "value":1}
-                4:{"type":"str", "value":"a = 5"}
-                5:{"type":"str", "value":"y = 2x^2 + 3x + 5"}
-                6:{"type":"img", "value":"https://img.skybro2004.com/asdfsdf"}
-            }
-        }
-    })
-    """
-
-
-
-@app.route("/image", methods=["GET"])
-def getImage():
-    category = flask.request.args.get("category", "dccon")
-    name = flask.request.args.get("name")
-    if name==None:
-        return 
-    path = f"./images/{category}/"
-    return flask.send_file('./modules/images/dccon/asdf.gif',
-        mimetype = "image/gif",
-        as_attachment=True)
-    return flask.send_from_directory(directory="file", filename=path + "asdf.gif")
 
 
 if __name__=="__main__":
